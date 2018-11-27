@@ -1,28 +1,23 @@
 //! Control a servo connected to channel 0 and one connected to channel 1.
+//!
 //! Make the servo at channel 0 turn clockwise, then counter-clockwise and
 //! the servo at channel 1 does the opposite.
+
 #![deny(unsafe_code, warnings)]
 #![no_std]
 #![no_main]
 
-extern crate cortex_m;
-#[macro_use(entry, exception)]
-extern crate cortex_m_rt as rt;
-extern crate f3;
+// panic handler
 extern crate panic_semihosting;
-extern crate pwm_pca9685 as pca9685;
 
-use f3::hal::delay::Delay;
-use f3::hal::prelude::*;
-use f3::hal::stm32f30x;
-use f3::led::Led;
-use rt::ExceptionFrame;
-use f3::hal::i2c::I2c;
-pub use f3::hal::stm32f30x::i2c1;
-use pca9685::{Channel, Pca9685, SlaveAddr};
+use cortex_m_rt::entry;
+use f3::{
+    hal::{delay::Delay, i2c::I2c, prelude::*, stm32f30x},
+    led::Led,
+};
+use pwm_pca9685::{Channel, Pca9685, SlaveAddr};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let cp = cortex_m::Peripherals::take().unwrap();
     let dp = stm32f30x::Peripherals::take().unwrap();
@@ -43,6 +38,7 @@ fn main() -> ! {
     let sda = gpiob.pb7.into_af4(&mut gpiob.moder, &mut gpiob.afrl);
 
     let i2c = I2c::i2c1(dp.I2C1, (scl, sda), 100.khz(), clocks, &mut rcc.apb1);
+
     let mut pwm = Pca9685::new(i2c, SlaveAddr::default());
     // This results in about 60 Hz, which is the frequency at which servos operate.
     pwm.set_prescale(100).unwrap();
@@ -75,16 +71,4 @@ fn main() -> ! {
         }
         current = (current as i16 + factor) as u16;
     }
-}
-
-exception!(HardFault, hard_fault);
-
-fn hard_fault(ef: &ExceptionFrame) -> ! {
-    panic!("{:#?}", ef);
-}
-
-exception!(*, default_handler);
-
-fn default_handler(irqn: i16) {
-    panic!("Unhandled exception (IRQn = {})", irqn);
 }
