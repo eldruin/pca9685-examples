@@ -8,7 +8,7 @@ PWM/Servo/LED controller with an STM32F3Discovery board.
 These examples expect that you connect the PCA9685 device to the pins PB6 (SCL)
 and PB7 (SDA) of the discovery board.
 
-For example, to run the caterpillar example:
+For example, to run the f3-servos example:
 First, connect your discovery board per USB, then connect OpenOCD in a terminal with:
 ```
 openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
