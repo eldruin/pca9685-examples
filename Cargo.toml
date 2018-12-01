@@ -4,7 +4,7 @@ categories = ["embedded", "no-std"]
 description = "An example of using the pwm-pca9685 crate to control servos."
 keywords = ["pwm", "servo", "pca9685"]
 license = "MIT OR Apache-2.0"
-name = "pca9685-demo"
+name = "pca9685-examples"
 version = "0.1.0"
 edition = "2018"
 
