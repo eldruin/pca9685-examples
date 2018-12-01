@@ -22,6 +22,9 @@
 
 // panic handler
 extern crate panic_semihosting;
+extern crate cortex_m_rt;
+extern crate pwm_pca9685;
+extern crate f3;
 
 use cortex_m_rt::entry;
 use f3::{

@@ -6,7 +6,6 @@ keywords = ["pwm", "servo", "pca9685"]
 license = "MIT OR Apache-2.0"
 name = "pca9685-examples"
 version = "0.1.0"
-edition = "2018"
 
 [dependencies]
 pwm-pca9685 = { git = "https://github.com/eldruin/pwm-pca9685-rs" }
