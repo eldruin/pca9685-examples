@@ -2,6 +2,19 @@
 //!
 //! Make the servo at channel 0 turn clockwise, then counter-clockwise and
 //! the servo at channel 1 does the opposite.
+//!
+//! This example is runs on the STM32F3 Discovery board using I2C1.
+//!
+//! ```
+//! F3  <-> PCA9685
+//! GND <-> GND
+//! VCC <-> +5V
+//! PB7 <-> SDA
+//! PB6 <-> SCL
+//! ```
+//! Run with:
+//! `cargo run --example f3-servos --target thumbv7em-none-eabihf`,
+//! currently only works on nightly.
 
 #![deny(unsafe_code, warnings)]
 #![no_std]
